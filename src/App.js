@@ -1,10 +1,13 @@
 
 import { useEffect, useState } from 'react';
 import styled from 'styled-components'
+import GistList from './components/GistList';
 import Header from "./components/Header";
 import GlobalStyles from "./GlobalStyle";
 import useDebounce from './hook/useDebounce';
 import { getPublicGists } from './services/gistService';
+
+
 
 const App = () => {
   
@@ -32,16 +35,21 @@ const App = () => {
   
 
   return (
+    <>
     <Wrapper className="App" data-testid="app">
       <Header handleTextChange={handleTextChange} />
       <GlobalStyles />
+    <GistList/>
     </Wrapper>
+    </>
   );
 }
 
 const Wrapper = styled.div`
   font-size: 14px;
   line-height: 1.5;
+  display: flex;
+  flex-direction: column;
 `;
 
 export default App;
