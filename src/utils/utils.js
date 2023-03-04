@@ -1,5 +1,6 @@
+// utility function for filtering unwanted gist data
 export const filterGistData = (gist) => {
-  const { 
+  const {
     url,
     id,
     forks_url: forkUrl,
@@ -13,19 +14,20 @@ export const filterGistData = (gist) => {
       avatar_url,
       html_url,
       login: name,
-    } } = gist;
+    }
+  } = gist;
   return {
     url,
     id,
     forkUrl,
     commentsUrl,
     comments,
-    createdAt: new Date(createdAt).toLocaleDateString().split(',')[0],
-    updatedAt: new Date(updatedAt).toLocaleDateString().split(',')[0],
+    createdAt: new Date(createdAt).toLocaleDateString().split(',')[0], // formats date into MM/DD/YYYY
+    updatedAt: new Date(updatedAt).toLocaleDateString().split(',')[0], // formats date into MM/DD/YYYY
     description,
     owner: {
       avatar_url, html_url, name
     },
-    files: Object.entries(files).map(o => { return { name: o[0], url: o[1].raw_url } })
+    files: Object.entries(files).map(o => { return { name: o[0], url: o[1].raw_url } }) // converts file object to iteratable array
   }
 }

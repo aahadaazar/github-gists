@@ -16,14 +16,17 @@ const App = () => {
   
   // state for saving search value
   const [searchText, setSearchText] = useState('');
+  // state for saving gists
   const [gistsList, setGistsList] = useState(null);
   // get debounced value after 500mils
   const debouncedValue = useDebounce(searchText, DEBOUNCE_TIME)
 
+  // searchbar hanlder
   const handleTextChange = (e)=>{
     setSearchText(e.target.value.trim())
   }
 
+  // common func for getting all gists
   const handleAllPublicGists = () => {
     getPublicGists().then(res=>{
       const reducedGist = res.data.map(o=>filterGistData(o));
@@ -33,7 +36,7 @@ const App = () => {
       setGistsList([]);
     });;
   }
-
+  // common func for getting all gists by username
   const handlePublicGistsByName = (name) => {
     getGistForUser(name).then(res=>{
       const reducedGist = res.data.map(o=>filterGistData(o));
@@ -44,6 +47,7 @@ const App = () => {
     });
   }
 
+  // gather changes in debounced value
   useEffect(() => {
     console.log(debouncedValue);
     setGistsList(null)

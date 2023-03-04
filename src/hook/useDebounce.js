@@ -13,7 +13,6 @@ export default function useDebounce(value, delay) {
       // This is how we prevent debounced value from updating if value is changed ...
       // .. within the delay period. Timeout gets cleared and restarted.
       return () => {
-        console.log('cleared')
         clearTimeout(handler);
       };
     },
