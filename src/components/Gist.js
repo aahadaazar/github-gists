@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components';
 
@@ -14,6 +14,7 @@ function Gist({ gist: singleGist }) {
         <p className='date'>{`Last Updated: ${singleGist.updatedAt}`}</p>
       </GistChronoDetails>
       <GistDetails>
+<<<<<<< HEAD
         <a
           target='_blank'
           href={singleGist.forkUrl}
@@ -46,6 +47,23 @@ function Gist({ gist: singleGist }) {
             )
           })
         }
+=======
+        <a target='_blank' href={singleGist.forkUrl} rel="noreferrer"><img className='fork' alt='fork' src='https://user-images.githubusercontent.com/17777237/54873012-40fa5b00-4dd6-11e9-98e0-cc436426c720.png' />Forks</a>
+        <a target='_blank' href={singleGist.comments} rel="noreferrer"><img className='comment' alt='fork' src='https://cdn0.iconfinder.com/data/icons/free-daily-icon-set/512/Comments-512.png' />{singleGist.comments} Comments</a>
+      </GistDetails>
+      <GistDescription>{'Description: ' + (singleGist.description || '-')}</GistDescription>
+      <GistFiles>
+      {
+        singleGist.files.map(file=>{
+          return(
+            <a target='_blank' href={file.url} rel="noreferrer">
+            <img alt='file-icon' className='file-icon' src='https://www.iconpacks.net/icons/2/free-file-icon-1453-thumb.png'/>
+            <p className='file-name'>{file.name}</p>
+            </a>
+          )
+        })
+      }
+>>>>>>> bc8b8479895fcd0389367f5d923e076c70721803
       </GistFiles>
     </GistWrapper>
   )
