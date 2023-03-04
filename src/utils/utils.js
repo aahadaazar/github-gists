@@ -1,5 +1,7 @@
 export const filterGistData = (gist) => {
-  const { url,
+  const { 
+    url,
+    id,
     forks_url: forkUrl,
     comments_url: commentsUrl,
     comments,
@@ -10,13 +12,20 @@ export const filterGistData = (gist) => {
     owner: {
       avatar_url,
       html_url,
-      login,
+      login: name,
     } } = gist;
   return {
-    url, forkUrl, commentsUrl,
-    comments, createdAt, updatedAt, description, owner: {
-      avatar_url, html_url, login
+    url,
+    id,
+    forkUrl,
+    commentsUrl,
+    comments,
+    createdAt: new Date(createdAt).toLocaleDateString().split(',')[0],
+    updatedAt: new Date(updatedAt).toLocaleDateString().split(',')[0],
+    description,
+    owner: {
+      avatar_url, html_url, name
     },
-    files : Object.entries(files).map(o=>{return {name:o[0], url:o[1].raw_url} })
+    files: Object.entries(files).map(o => { return { name: o[0], url: o[1].raw_url } })
   }
 }

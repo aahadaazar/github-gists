@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import GlobalStyles from "./GlobalStyle";
 import useDebounce from './hook/useDebounce';
 import { getPublicGists } from './services/gistService';
+import { filterGistData } from './utils/utils';
 
 
 
@@ -21,17 +22,16 @@ const App = () => {
     setSearchText(e.target.value.trim())
   }
 
-  // const handlePublicGists = () => {
-  //   const publicGists = getPublicGists().then(res=>{
-  //     return res.data
-  //   });
-  //   console.log(publicGists);
-  //   setGistsList(publicGists);
-  // }
+  const handlePublicGists = () => {
+    getPublicGists().then(res=>{
+      const reducedGist = res.data.map(o=>filterGistData(o));
+    setGistsList(reducedGist);
+    });
+  }
 
-  // useEffect(() => {
-  //   handlePublicGists();
-  // }, [])
+  useEffect(() => {
+    handlePublicGists();
+  }, [])
   
 
   return (
@@ -39,7 +39,7 @@ const App = () => {
     <Wrapper className="App" data-testid="app">
       <Header handleTextChange={handleTextChange} />
       <GlobalStyles />
-    <GistList/>
+    <GistList gists={gistsList}/>
     </Wrapper>
     </>
   );
