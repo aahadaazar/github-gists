@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components';
 
@@ -56,9 +56,8 @@ padding: 12px;
   display:flex;
   flex-direction: column;
   &:not(:last-child) {
-    
   border-bottom:1px solid #d4d4d4;
-}
+  }
 `;
 
 const GistUserDetail = styled.a`

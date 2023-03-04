@@ -2,15 +2,40 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import Gist from './Gist';
-function GistList({gists}) {
+function GistList({ gists }) {
+
+  // Render Container when gists are being fetched
+  const GistLoadingContainer = () => {
+    return (
+      <h3>
+        <img
+          className='loading'
+          alt='loading'
+          src='https://upload.wikimedia.org/wikipedia/commons/3/3a/Gray_circles_rotate.gif' />
+        Fetching Gists
+      </h3>
+    )
+  }
+
+  // Render Container when fetched gist list is empty
+  const EmptyGistContainer = () => {
+    return <h3>No Gists Found</h3>
+  }
+
+  // Render Container when fetched gist list is not empty
+  const GistListRenderer = () => {
+    return gists.map(gist => {
+      return <Gist key={gist.id} gist={gist} />
+    })
+  }
+
   return (
     <GistListWrapper>
       {
-        gists === null ? <h3><img className='loading' alt='loading' src='https://upload.wikimedia.org/wikipedia/commons/3/3a/Gray_circles_rotate.gif'/>Fetching Gists</h3>
-        : gists && gists.length === 0 ? <h3>No Gists Found</h3>
-         :gists.map(gist=>{
-          return <Gist key={gist.id} gist={gist}/>
-        })
+        gists === null
+          ? <GistLoadingContainer />
+          : gists && gists.length === 0 ? <EmptyGistContainer />
+            : <GistListRenderer />
       }
     </GistListWrapper>
   )
@@ -36,7 +61,7 @@ const GistListWrapper = styled.div`
 `;
 
 GistList.propTypes = {
-  gists:PropTypes.array
+  gists: PropTypes.array
 }
 
 GistList.defaultProps = {
