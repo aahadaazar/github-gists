@@ -7,6 +7,7 @@ import GlobalStyles from "./GlobalStyle";
 import useDebounce from './hook/useDebounce';
 import { getGistForUser, getPublicGists } from './services/gistService';
 import { filterGistData } from './utils/utils';
+import toast from 'react-hot-toast';
 
 
 const DEBOUNCE_TIME = 500;
@@ -27,13 +28,19 @@ const App = () => {
     getPublicGists().then(res=>{
       const reducedGist = res.data.map(o=>filterGistData(o));
     setGistsList(reducedGist);
-    });
+    }).catch(err=>{
+      toast.error(err.response.data.message)
+      setGistsList([]);
+    });;
   }
 
   const handlePublicGistsByName = (name) => {
     getGistForUser(name).then(res=>{
       const reducedGist = res.data.map(o=>filterGistData(o));
     setGistsList(reducedGist);
+    }).catch(err=>{
+      toast.error(err.response.data.message)
+      setGistsList([]);
     });
   }
 
